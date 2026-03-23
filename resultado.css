@@ -1,0 +1,367 @@
+  /* ============================================================
+    TABLA NÓMINA — tabla.css
+    Consistent with the Sign In form design
+    ============================================================ */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:      #111111;
+    --white:      #ffffff;
+    --red:        #cc0000;
+    --gray:       #888888;
+    --gray-light: #f2f2f2;
+    --border:     #d0d0d0;
+    --bg:         #e8e8e8;
+
+    /* accent per section */
+    --dev-accent:  #111111;
+    --ded-accent:  #cc0000;
+    --arp-accent:  #444444;
+    --pro-accent:  #666666;
+
+    --shadow: 6px 6px 0 #aaaaaa;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'Barlow', sans-serif;
+  }
+
+  /* ── PAGE ── */
+  body {
+    background: var(--bg);
+    font-family: var(--font-body);
+    color: var(--black);
+    padding: 40px 16px 60px;
+    min-height: 100vh;
+  }
+
+  .page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    height: fit-content;
+    align-self: flex-start;
+  }
+
+  .card.neto-card {
+    display: flex; 
+    align-self: stretch;
+    width: auto; 
+    min-width: 100%; 
+    box-sizing: border-box;
+  }
+  /* ── HEADER CARD ── */
+  .header-card {
+    padding: 32px 36px 28px;
+    text-align: center;
+  }
+
+  .logo {
+    width: 44px; height: 44px;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .logo span {
+    width: 18px; height: 18px;
+    background: var(--white);
+    display: block;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 0.07em;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .subtitle {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-top: 6px;
+    margin-bottom: 24px;
+  }
+  .subtitle strong { color: var(--black); font-weight: 700; }
+
+  /* Employee info strip */
+  .employee-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1.5px solid var(--border);
+    border-bottom: 1.5px solid var(--border);
+    text-align: left;
+  }
+
+  .info-item {
+    flex: 1 1 160px;
+    padding: 12px 16px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .info-item:last-child { border-right: none; }
+
+  .info-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .info-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white) !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    width: fit-content;
+  }
+
+  /* ── TABLES GRID ── */
+  .tables-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: auto;
+  }
+
+  /* ── CARD HEADER (per table) ── */
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .card-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+  }
+
+  .card-tag {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    opacity: 0.18;
+  }
+
+  .devengados  { border-left: 4px solid var(--dev-accent); }
+  .deducciones { border-left: 4px solid var(--ded-accent); }
+  .aportes     { border-left: 4px solid var(--arp-accent); }
+  .provisiones { border-left: 4px solid var(--pro-accent); }
+
+  .devengados  h2 { color: var(--dev-accent); }
+  .deducciones h2 { color: var(--ded-accent); }
+  .aportes     h2 { color: var(--arp-accent); }
+  .provisiones h2 { color: var(--pro-accent); }
+
+  /* ── TABLE ── */
+  .nomina-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    height: 1px;
+    min-height: auto;
+    margin-bottom: 0;
+  }
+
+  .nomina-table thead th {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+    background: var(--gray-light);
+    padding: 9px 14px;
+    border-bottom: 1.5px solid var(--border);
+    text-align: left;
+  }
+
+  .nomina-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--black);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .nomina-table tbody tr:last-child td { border-bottom: none; }
+
+  .nomina-table tbody tr.empty-row td {
+    padding: 10px 14px;
+    color: transparent;
+    user-select: none;
+    display: none;
+  }
+
+  .nomina-table tbody tr:hover:not(.empty-row) td {
+    background: var(--gray-light);
+    transition: background 0.15s;
+  }
+
+  .num { text-align: right !important; font-variant-numeric: tabular-nums; }
+
+  /* TFOOT */
+  .nomina-table tfoot td {
+    padding: 11px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .nomina-table tfoot .highlight     { color: #ffffff; font-size: 0.88rem; }
+  .nomina-table tfoot .highlight-red { color: #ff6b6b; font-size: 0.88rem; }
+
+  /* ── NETO A PAGAR ── */
+  .neto-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    border-left: 6px solid var(--black);
+  }
+
+  .neto-label {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--black);
+  }
+
+  .neto-sub {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .neto-amount {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .total-amount {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  /* ── ACTIONS ── */
+  .actions {
+    display: flex;
+    gap: 14px;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    height: 46px;
+    padding: 0 32px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    transition: background 0.15s, color 0.15s, transform 0.1s;
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  .btn-outline {
+    background: var(--white);
+    color: var(--black);
+  }
+  .btn-outline:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-solid {
+    background: var(--black);
+    color: var(--white);
+  }
+  .btn-solid:hover {
+    background: #333;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .card { box-shadow: none; }
+    .actions { display: none; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .tables-grid { grid-template-columns: 1fr; }
+    .neto-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .neto-amount { font-size: 2rem; }
+    .employee-info { flex-direction: column; }
+    .info-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .info-item:last-child { border-bottom: none; }
+    .header-card { padding: 24px 20px 20px; }
+  }
+
+  .selected {
+    background: #f0f0f0;
+    font-weight: 700;
+  }
+
+.copied {
+  position: relative;
+}
+
+.copied::after {
+  content: "✓ Copiado";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a7a3c;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeUp 0.2s ease both;
+}
