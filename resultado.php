@@ -1,7 +1,6 @@
 <?php
 $salmin = 1750905;
-
-$i = $_REQUEST["i"];
+$i = (int)$_REQUEST["i"];
 $id = $_REQUEST["id"];
 $nombre = $_REQUEST["name"];
 $apell = $_REQUEST["apell"];
@@ -13,78 +12,88 @@ $cargo = $_REQUEST["cargo"];
 $cncost = $_REQUEST["cncost"];
 $fecing = $_REQUEST["fecing"];
 $nvlrg = $_REQUEST["nvlrg"];
+$nvlrg_i = (float)$nvlrg[$i];
 $nvl = 0;
-if($nvlrg[$i] == 0.00522){
+
+if($nvlrg_i == 0.00522){
     $nvl = "I";
-}else if($nvlrg[$i] == 0.01044){
+}else if($nvlrg_i == 0.01044){
     $nvl = "II";
-}else if($nvlrg[$i] == 0.02436){
+}else if($nvlrg_i == 0.02436){
     $nvl = "III";
-}else if($nvlrg[$i]== 0.04350){
+}else if($nvlrg_i == 0.04350){
     $nvl = "IV";
-}else if($nvlrg[$i] == 0.06960){
+}else if($nvlrg_i == 0.06960){
     $nvl = "V";
 }
 
 $sueldb = $_REQUEST["sueldb"];
+$sueldb_i = (float)$sueldb[$i];
 $diaslab = $_REQUEST["diaslab"];
+$diaslab_i = (int)$diaslab[$i];
 $diasarl = $_REQUEST["diasarl"];
+$diasarl_i = (int)$diasarl[$i];
 $diasvac = $_REQUEST["diasvac"];
+$diasvac_i = (int)$diasvac[$i];
 $diaseps = $_REQUEST["diaseps"];
-$valdia = $sueldb[$i] / 30;
+$diaseps_i = (int)$diaseps[$i];
+$valdia = $sueldb_i / 30;
 
-# Devengados
 $auxtr = 0;
-if((float)$sueldb[$i] <= ($salmin * 2)){
-  $auxtr = (249095/30) * $diaslab[$i];
+if($sueldb_i <= ($salmin * 2)){
+  $auxtr = (249095/30) * $diaslab_i;
 }
-$salariosd = ($sueldb[$i]/30) * $diaslab[$i];
-$salariovac = $valdia * $diasvac[$i];
-$salarioarl = $valdia * $diasarl[$i];
-$salarioeps = $valdia * $diaseps[$i];
+
+$salariosd = ($sueldb_i/30) * $diaslab_i;
+$salariovac = $valdia * $diasvac_i;
+$salarioarl = $valdia * $diasarl_i;
+$salarioeps = $valdia * $diaseps_i;
 
 function calcularHoras($horas, $tasa, $valhora){
   $valhoraextra = $valhora * $tasa;
   $horaextra = $valhoraextra * (float)$horas;
   return $horaextra;
 }
-$valhora = ($sueldb[$i] / 240);
+$valhora = ($sueldb_i / 240);
 $hrdi = $_REQUEST["hrdi"];
-$hrediu = calcularHoras($hrdi[$i], 1.25, $valhora);
+$hrediu = calcularHoras((float)$hrdi[$i], 1.25, $valhora);
+
 $hrnoc = $_REQUEST["hrnoc"];
-$hrenoc = calcularHoras($hrnoc[$i], 1.75, $valhora);
+$hrenoc = calcularHoras((float)$hrnoc[$i], 1.75, $valhora);
+
 $hrdomdi = $_REQUEST["hrdomdi"];
-$hredomdi = calcularHoras($hrdomdi[$i], 2, $valhora);
+$hredomdi = calcularHoras((float)$hrdomdi[$i], 2, $valhora);
+
 $hrdomnoc = $_REQUEST["hrdomnoc"];
-$hredomnoc = calcularHoras($hrdomnoc[$i], 2.5, $valhora);
+$hredomnoc = calcularHoras((float)$hrdomnoc[$i], 2.5, $valhora);
 
 $devengado = $salariosd + $auxtr + $salariovac + $salarioarl + $salarioeps + $hrediu + $hrenoc + $hredomdi + $hredomnoc;
 
-# Deducciones
 $salud = $salariosd * 0.04;
 $pension = $salariosd * 0.04;
+
 $fondsol = 0;
-if($sueldb[$i] > ($salmin * 2)){
+if($sueldb_i > ($salmin * 2)){
   $fondsol = $salariosd * 0.01;
 }
+
 $deducciones = $salud + $pension + $fondsol;
 
-# Aportes Empresa
-$salude = $sueldb[$i] * 0.085;
-$pensione = $sueldb[$i] * 0.12;
-$arl = $sueldb[$i] * (float)$nvlrg[$i];
-$caja = $sueldb[$i] * 0.04;
-$sena = $sueldb[$i] * 0.02;
-$icbf = $sueldb[$i] * 0.03;
+$salude = $sueldb_i * 0.085;
+$pensione = $sueldb_i * 0.12;
+$arl = $sueldb_i * $nvlrg_i;
+$caja = $sueldb_i * 0.04;
+$sena = $sueldb_i * 0.02;
+$icbf = $sueldb_i * 0.03;
+
 $aportes = $salude + $pensione + $arl + $caja + $sena + $icbf;
 
-# Prestaciones sociales
-$prima = $sueldb[$i] * 0.0833;
-$cesantias = $sueldb[$i] * 0.0833;
-$interesesces = $cesantias * $diaslab[$i] * 0.12 / 360;
-$vacaciones = $sueldb[$i] * 0.0417;
-$prestaciones = $prima + $cesantias + $interesesces + $vacaciones;
+$prima = $sueldb_i * 0.0833;
+$cesantias = $sueldb_i * 0.0833;
+$interesesces = $cesantias * $diaslab_i * 0.12 / 360;
+$vacaciones = $sueldb_i * 0.0417;
 
+$prestaciones = $prima + $cesantias + $interesesces + $vacaciones;
 
 $neto = $devengado - $deducciones;
 $total = $devengado + $aportes + $prestaciones;
