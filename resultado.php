@@ -814,4 +814,5 @@ if (isset($_REQUEST["exportar"])) {
     </div>
   </div>
 </body>
+<script src="resultado.js"></script>
 </html>

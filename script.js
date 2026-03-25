@@ -1,6 +1,5 @@
 const $ = id => document.getElementById(id);
 
-/* ── CONTADOR DE DÍAS (máx 30) ── */
 function totalDias() {
   const arl = $('arlSi').checked ? (parseFloat($('diasARL').value) || 0) : 0;
   const eps = $('epsSi').checked ? (parseFloat($('diasEPS').value) || 0) : 0;
@@ -19,7 +18,6 @@ function updateDaysCounter() {
   counter.classList.toggle('full', total === 30);
 }
 
-/* Limitar para que no pase de 30 */
 function clampDays(changedId) {
   const el = $(changedId);
   if (!el) return;
@@ -44,7 +42,6 @@ function clampDays(changedId) {
   el.addEventListener('input', () => clampDays(id));
 });
 
-/* ── Mostrar/Ocultar incapacidad ARL ── */
 document.querySelectorAll('input[name="incapARL"]').forEach(r =>
   r.addEventListener('change', () => {
     const show = $('arlSi').checked;
@@ -56,7 +53,6 @@ document.querySelectorAll('input[name="incapARL"]').forEach(r =>
   })
 );
 
-/* ── Mostrar/Ocultar incapacidad EPS ── */
 document.querySelectorAll('input[name="incapEPS"]').forEach(r =>
   r.addEventListener('change', () => {
     const show = $('epsSi').checked;
@@ -68,7 +64,6 @@ document.querySelectorAll('input[name="incapEPS"]').forEach(r =>
   })
 );
 
-/* ── Validación básica ── */
 function validateForm() {
   let ok = true;
 
@@ -88,14 +83,13 @@ function validateForm() {
     }
   });
 
-  // Validación de email
   const email = $('email').value;
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     $('email').classList.add('error');
     ok = false;
   }
 
-  // Validación de días
+
   const total = totalDias();
   if (total === 0 || total > 30) {
     $('daysCounter').classList.add('warn');
@@ -105,7 +99,6 @@ function validateForm() {
   return ok;
 }
 
-/* ── Reset ── */
 function resetForm() {
   $('payrollForm').reset();
 

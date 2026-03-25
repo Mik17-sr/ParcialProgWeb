@@ -64,7 +64,6 @@ $i = isset($_REQUEST['i']) ? (int)$_REQUEST['i'] : null;
         <input type="text" id="identificacion" placeholder="Ej. 1020304050" maxlength="12" name="id[]">
         <p class="error-msg" id="err-identificacion"></p>
       </div>
-
       <div class="row two">
         <div class="field">
           <label>Nombres</label>
